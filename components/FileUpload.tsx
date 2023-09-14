@@ -30,7 +30,6 @@ const FileUpload: React.FC<FileUploadProps> = ({ onChange, value, endpoint }) =>
         onClientUploadComplete={(res) => {
           // Do something with the response
           onChange(res?.[0]?.url);
-          alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
           // Do something with the error.

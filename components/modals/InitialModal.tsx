@@ -27,10 +27,12 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useRouter } from 'next/navigation'
+import useOrigin from '@/hooks/useOrigin'
 
 const InitialModal = () => {
     const [isMounted, setIsMounted] = useState(false);
     const router = useRouter();
+ 
 
     useEffect(() => {
         setIsMounted(true)
