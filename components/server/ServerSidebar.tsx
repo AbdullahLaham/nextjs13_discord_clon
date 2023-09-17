@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 import ServerHeader from './ServerHeader';
 import { safeServer } from '@/types';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface ServerSidebarProps {
     serverId: string,
@@ -28,6 +29,9 @@ const ServerSidebar = ({serverId, server, profile}: ServerSidebarProps) => {
   return (
     <div className='flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F4]'>
         <ServerHeader server={server} role={role} />
+        <ScrollArea className='flex-1 px-3' >
+          <ServerSearch />
+        </ScrollArea>
     </div>
   )
 }

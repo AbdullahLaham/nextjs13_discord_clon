@@ -2,7 +2,7 @@
 
 import { safeServer } from '@/types'
 import { MemberRole } from '@prisma/client'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Server } from 'http'
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, Users } from 'lucide-react'
 import React from 'react'
@@ -41,7 +41,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({server, role}) => {
             }
             {
                 isModerator && (
-                    <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer flex items-center'>Create Channel <PlusCircle className='h-4 w-4 ml-auto' /></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onOpen('createChannel', {server})} className=' px-3 py-2 text-sm cursor-pointer flex items-center'>Create Channel <PlusCircle className='h-4 w-4 ml-auto' /></DropdownMenuItem>
                 )
             }
             {
@@ -51,12 +51,12 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({server, role}) => {
             }
             {
                 isAdmin && (
-                    <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer text-rose-500 flex items-center '>Delete Server <Trash className='h-4 w-4 ml-auto' /></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onOpen('deleteServer', {server})} className=' px-3 py-2 text-sm cursor-pointer text-rose-500 flex items-center '>Delete Server <Trash className='h-4 w-4 ml-auto' /></DropdownMenuItem>
                 )
             }
             {
                 !isAdmin && (
-                    <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer text-rose-500 flex items-center '>Leave Server <LogOut className='h-4 w-4 ml-auto' /></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onOpen('leaveServer', {server})} className=' px-3 py-2 text-sm cursor-pointer text-rose-500 flex items-center '>Leave Server <LogOut className='h-4 w-4 ml-auto' /></DropdownMenuItem>
                 )
             }
         </DropdownMenuContent>

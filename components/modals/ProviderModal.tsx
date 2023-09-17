@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import InviteModal from './InviteModal';
 import EditServerModal from '@/components/modals/editServerModal';
 import ManageMembersModal from '@/components/modals/manageMembersModal';
+import CreateChannelModal from '@/components/modals/createChannelModal';
+import LeaveServerModal from '@/components/modals/leaveServerModal';
+import DeleteServerModal from '@/components/modals/deleteServerModal';
+
 
 const ProviderModal = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -23,6 +27,9 @@ const ProviderModal = () => {
         <CreateServerModal />
         <EditServerModal />
         <ManageMembersModal />
+        <CreateChannelModal />
+        <LeaveServerModal />
+        <DeleteServerModal />
     </>
   )
 }
