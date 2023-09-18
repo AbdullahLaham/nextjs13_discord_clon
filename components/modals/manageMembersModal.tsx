@@ -42,6 +42,7 @@ const ManageMembersModal = () => {
         "ADMIN": <ShieldAlert className="h-4 w-4 text-rose-500 " />,
 
     }
+    
     const onRoleChange = async (memberId: string, role: MemberRole) => {
         try {
             setLoadingId(memberId);
@@ -92,7 +93,7 @@ const ManageMembersModal = () => {
             {/* <DialogTrigger>Open</DialogTrigger> */}
             <DialogContent className="bg-white text-black overflow-hidden">
                 <DialogHeader className="pt-8 px-6 ">
-                    <DialogTitle className="text-2xl text-center font-semibold">Invite Friends</DialogTitle>
+                    <DialogTitle className="text-2xl text-center font-semibold">Manage Members</DialogTitle>
                     <DialogDescription className="text-zinc-500 text-center">
                         {server?.members?.length} Members
                     </DialogDescription>

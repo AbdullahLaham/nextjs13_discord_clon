@@ -39,7 +39,9 @@ import toast from 'react-hot-toast';
 const CreateChannelModal = () => {
     const router = useRouter();
 
-    const {isOpen, onClose, type} = useModal();
+    const {isOpen, onClose, type, data} = useModal();
+    const {channelType} = data;
+    
     const params = useParams();
     const isModalOpen = isOpen && type == "createChannel";
 
@@ -57,10 +59,13 @@ const CreateChannelModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: ChannelType.TEXT,
+            type: channelType || ChannelType.TEXT,
         }
     });
-
+    useEffect(() => {
+        if (channelType) form.setValue('type', channelType)
+        else form.setValue('type', ChannelType.TEXT)
+    }, [])
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
