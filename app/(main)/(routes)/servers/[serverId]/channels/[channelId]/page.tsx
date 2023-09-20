@@ -1,3 +1,4 @@
+import ChatHeader from '@/components/chat/ChatHeader';
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db';
 import { redirectToSignIn } from '@clerk/nextjs';
@@ -17,18 +18,48 @@ const ChannelPage = async ({params}: ChannelPageProps) => {
             id: params?.channelId,
         }
     });
+    const servers = await db.server.findMany({
+        where: {
+            members: {
+                some: {
+                    profileId: profile.id,
+                }
+            }
+        }
+      })
+
     const member = await db.member.findFirst({
         where: {
             profileId: profile.id,
             serverId: params.serverId,
         }
     })
-    if (!channel || !member) {
-        redirect('/');
+    const server = await db.server.findUnique({
+        where: {
+            id: params.serverId
+        },
+        include: {
+            channels: {
+                orderBy: {
+                    createdAt: "desc",
+                }
+            },
+            members: {
+                include: {
+                    profile: true,
+                },
+                orderBy: {
+                    role: 'asc',
+                }
+            }
+        }
+    })
+    if (!channel || !member || !server) {
+        return redirect('/');
     }
   return (
-    <div>
-        channel
+    <div className='bg-white dark:bg-[#313338] flex flex-col h-full'>
+        <ChatHeader type='channel' name={channel?.name} serverId={params?.serverId} servers={servers} profile={profile} server={server}  />
     </div>
   )
 }
