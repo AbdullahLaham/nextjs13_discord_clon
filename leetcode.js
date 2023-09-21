@@ -87,12 +87,46 @@
 
 
 
-    let nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
-    let max = nums1?.length > nums2.length ? nums1?.length : nums2?.length;
-    let arr =[];
-    for (i = 0; i < max; i++) {
-        if (nums1[i]) arr.push(nums1[i]);
-        if (nums2[i]) arr.push(nums2[i]);
-    }
-    return console.log([...nums1, ...nums2].filter((item) => item !== 0).sort((a,b) => a - b)) ;
+    // let nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+    // let max = nums1?.length > nums2.length ? nums1?.length : nums2?.length;
+    // let arr =[];
+    // for (i = 0; i < max; i++) {
+    //     if (nums1[i]) arr.push(nums1[i]);
+    //     if (nums2[i]) arr.push(nums2[i]);
+    // }
+    // return console.log([...nums1, ...nums2].filter((item) => item !== 0).sort((a,b) => a - b)) ;
     
+
+// let l1 = [2,4,3], l2 = [5,6,4]
+
+// return console.log(`${(Number(l1.join("")) + Number(l2.join("")))}`.split(""))
+
+
+let nums =  [5,6,6,85,4], val = 6;
+let j = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== val) {
+            nums[j++] = nums[i];
+        }
+    }
+    console.log(nums)
+    return j;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

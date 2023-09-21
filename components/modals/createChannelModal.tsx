@@ -59,12 +59,12 @@ const CreateChannelModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: channelType || ChannelType.TEXT,
+            type: channelType || ChannelType?.TEXT,
         }
     });
     useEffect(() => {
         if (channelType) form.setValue('type', channelType)
-        else form.setValue('type', ChannelType.TEXT)
+        else form.setValue('type', ChannelType?.TEXT)
     }, [])
     const isLoading = form.formState.isSubmitting;
 

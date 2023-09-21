@@ -39,6 +39,7 @@ const ServerPage = async ({params}: ServerPageProps) => {
     });
 
     const initialChannel = server?.channels[0];
+    
     if (initialChannel?.name !== 'general') return null;
 
 
