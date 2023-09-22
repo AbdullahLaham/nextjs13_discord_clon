@@ -7,6 +7,7 @@ import { Clerk } from '@clerk/nextjs/server'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
 import ProviderModal from '@/components/modals/ProviderModal'
+import { SocketProvider } from '@/components/providers/socket-provider'
 const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,8 +25,11 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className, "bg-white", "dark:bg-[#313338]")}>
           <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false} storageKey='discord-clone' >
-            <ProviderModal />
-            {children}
+            <SocketProvider>
+              <ProviderModal />
+              {children}
+              
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>

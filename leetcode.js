@@ -102,26 +102,54 @@
 // return console.log(`${(Number(l1.join("")) + Number(l2.join("")))}`.split(""))
 
 
-let nums =  [5,6,6,85,4], val = 6;
-let j = 0;
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] !== val) {
-            nums[j++] = nums[i];
-        }
-    }
-    console.log(nums)
-    return j;
+// let nums =  [5,6,6,85,4], val = 6;
+// let j = 0;
+//     for (let i = 0; i < nums.length; i++) {
+//         if (nums[i] !== val) {
+//             nums[j++] = nums[i];
+//         }
+//     }
+//     console.log(nums)
+//     return j;
 
 
 
 
-
-
-
-
-
-
-
+// var lengthOfLongestSubstring = function(s) {
+    
+//     let arr = [];
+//         let max = 0;
+//         for (i = 0; i < s.length; i++) {
+//             if (s.length == 1) return 1
+//             if (!arr.includes(s[i]) ) {
+//                 arr.push(s[i])
+//             }
+    
+//             else {
+//                 if (s[i - 1] == s[i]) {
+//                      max = max > arr.length ? max : arr.length
+    
+//                     arr.length = 0;
+                    
+//                     arr.push(s[i]);
+    
+//                 } else {
+//                     max = max > arr.length ? max : arr.length
+    
+//                     arr.length = 0;
+//                     arr.push(s[i - 1]);
+//                     arr.push(s[i]);
+//                 }
+                
+               
+                
+//             }console.log(arr)
+//         }
+    
+//         return max > arr.length ? max : arr.length
+    
+    
+//     }
 
 
 

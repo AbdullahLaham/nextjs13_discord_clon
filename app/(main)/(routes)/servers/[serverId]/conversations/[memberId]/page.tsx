@@ -70,6 +70,7 @@ const server = await db.server.findUnique({
   }
 
   const conversation = await getOrCreateConversation(currentMember.id, params.memberId);
+  
 
   if (!conversation) {
     return redirect(`/servers/${params.serverId}`);

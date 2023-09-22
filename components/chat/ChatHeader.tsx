@@ -4,6 +4,7 @@ import MobileToggle from '@/components/mobile-toggle'
 import { Profile, Server } from '@prisma/client'
 import { safeServer } from '@/types'
 import UserAvatar from '../UserAvatar'
+import SocketIndicator from '../SocketIndicator'
 interface ChatHeaderProps {
     serverId: string,
     name: string,
@@ -28,6 +29,9 @@ const ChatHeader = ({serverId, name, imageUrl, type, profile, servers, server}: 
         )}
 
         <p className='font-semibold text-md text-black dark:text-white'>{name}</p>
+        <div className='ml-auto flex items-center '>
+          <SocketIndicator />
+        </div>
     </div>
   )
 
