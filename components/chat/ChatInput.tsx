@@ -61,26 +61,26 @@ const ChatInput = ({apiUrl, query, name, type}: ChatInputProps) => {
   return (
     <div>
         <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
-                                control={form.control}
-                                name="content"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormControl>
-                                            <div className='relative p-4 px-6 '>
-                                                <button type='button' onClick={() => onOpen('messageFile', {apiUrl, query})} className='absolute top-6 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center'><Plus className='text-white dark:text-[#313383]' /></button>
-                                                <Input disabled={isLoading} className='px-14 bg-zinc-200 dark:bg-zinc-600 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0  ' placeholder={`Message ${type == 'conversation' ? name : '#' + name}`} {...field} />
-                                                <div className='absolute top-6 right-8 cursor-pointer '>
-                                                    <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
-                                                </div>
-                                            </div>         
-                                        </FormControl>
-                                    </FormItem>
-                                )}
-                            />
-                    </form>
-                </Form>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="content"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <div className='relative p-4 px-6 '>
+                                        <button type='button' onClick={() => onOpen('messageFile', {apiUrl, query})} className='absolute top-6 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center'><Plus className='text-white dark:text-[#313383]' /></button>
+                                        <Input disabled={isLoading} className='px-14 bg-zinc-200 dark:bg-zinc-600 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0  ' placeholder={`Message ${type == 'conversation' ? name : '#' + name}`} {...field} />
+                                        <div className='absolute top-6 right-8 cursor-pointer '>
+                                            <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
+                                        </div>
+                                    </div>         
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+            </form>
+        </Form>
     </div>
   )
 }

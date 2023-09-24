@@ -2,8 +2,8 @@
 
 
 
-import { Member } from '@prisma/client'
-import React from 'react'
+import { Member, Message, Profile } from '@prisma/client'
+import React, { Fragment } from 'react'
 import ChatWelcome from './ChatWelcome'
 import { useChatQuery } from '@/hooks/useChatQuery'
 import { Loader2, ServerCrash } from 'lucide-react'
@@ -33,9 +33,15 @@ const ChatMessages = ({
     paramValue,
     type,
   }: ChatMessagesProps) => {
+    type MessageWithMemberWithProfile = Message & {
+        member: Member & {
+            profile: Profile
+        }
+    }
     const queryKey = `chat:${chatId}`;
     
     const {data, fetchNextPage, hasNextPage, isFetchingNextPage, status}: any = useChatQuery({apiUrl, paramKey, paramValue, queryKey })
+    console.log(data, 'daaaaaaaaaaaaaa')
     if (status == 'loading') {
         return (
             <div className='flex flex-col flex-1 h-full justify-center items-center'>
@@ -60,6 +66,18 @@ const ChatMessages = ({
     <div className='flex-1 h-full flex flex-col py-4 overflow-y-auto'>
         <div className='flex-1' />
         <ChatWelcome type={type} name={name} />
+        <div className='flex flex-col-reverse mt-auto'>
+            {data?.pages?.map((group: any, i: number) => (
+                <Fragment>
+                    {group?.items?.map((message: MessageWithMemberWithProfile, i: number) => (
+                        <div key={i}>
+                            {message?.content}
+                        </div>
+                    ))}
+                </Fragment>
+            ))}
+
+        </div>
     </div>
   )
 }
