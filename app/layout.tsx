@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
 import ProviderModal from '@/components/modals/ProviderModal'
 import { SocketProvider } from '@/components/providers/socket-provider'
+import { QueryProvider } from '@/components/providers/query-provider'
 const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
           <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false} storageKey='discord-clone' >
             <SocketProvider>
               <ProviderModal />
-              {children}
+              <QueryProvider>
+                {children}
+              </QueryProvider>
               
             </SocketProvider>
           </ThemeProvider>
