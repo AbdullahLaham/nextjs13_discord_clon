@@ -45,6 +45,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponseS
 
         if (!member) return res.status(404).json({error: "Member Not Found"});
 
+
         const message = await db.message.create({
             data: {
                 content,
@@ -60,6 +61,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponseS
                 }
             }
         });
+
         const channelKey = `chat:${channelId}:messages`;
         res?.socket?.server?.io?.emit(channelKey, message);
         return res.status(200).json(message);
@@ -69,3 +71,5 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponseS
         return res.status(500).json({message: "internal error"})
     }
 }
+
+

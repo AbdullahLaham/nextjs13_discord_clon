@@ -40,9 +40,9 @@ const MessageFileModal = () => {
 
 
     const formSchema = z.object({
-    fileUrl: z.string().min(2, {
-        message: "Attachment is required.",
-    }),
+        fileUrl: z.string().min(2, {
+            message: "Attachment is required.",
+        }),
     });
 
     
