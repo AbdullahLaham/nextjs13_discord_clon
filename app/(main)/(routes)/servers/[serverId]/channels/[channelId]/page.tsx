@@ -8,12 +8,14 @@ import { redirectToSignIn } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
 import { redirect } from 'next/dist/server/api-utils';
 import React from 'react'
+
 interface ChannelPageProps {
     params: {
         serverId: string,
         channelId: string,
     }
 }
+
 const ChannelPage = async ({params}: ChannelPageProps) => {
     const profile = await currentProfile();
     if (!profile) return redirectToSignIn();

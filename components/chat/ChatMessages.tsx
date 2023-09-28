@@ -95,7 +95,7 @@ const ChatMessages = ({
         )}
         <div className='flex flex-col-reverse mt-auto'>
             {data?.pages?.map((group: any, i: number) => (
-                <Fragment>
+                <Fragment key={i}>
                     {group?.items?.map((message: MessageWithMemberWithProfile, i: number) => (
                         <ChatItem key={message?.id} member={message?.member}  content={message?.content} currentMember={member}  id={message?.id} fileUrl={message?.fileUrl} deleted={message?.deleted} timestamp={format(new Date(message.createdAt), DATE_FORMAT)} isUpdated={message?.updatedAt !== message?.createdAt} socketUrl={socketUrl} socketQuery={socketQuery}   />
                     ))}

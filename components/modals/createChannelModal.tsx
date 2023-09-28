@@ -65,7 +65,7 @@ const CreateChannelModal = () => {
     useEffect(() => {
         if (channelType) form.setValue('type', channelType)
         else form.setValue('type', ChannelType?.TEXT)
-    }, [])
+    }, [channelType, form])
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
