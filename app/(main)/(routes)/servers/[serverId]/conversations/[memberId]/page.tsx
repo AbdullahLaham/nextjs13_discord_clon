@@ -1,4 +1,7 @@
+import MediaRoom from '@/components/MediaRoom';
 import ChatHeader from '@/components/chat/ChatHeader';
+import ChatInput from '@/components/chat/ChatInput';
+import ChatMessages from '@/components/chat/ChatMessages';
 import { getOrCreateConversation } from '@/lib/conversation';
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db';
@@ -9,9 +12,12 @@ interface MemberPageProps {
   params: {
     memberId: string,
     serverId: string,
+  },
+  searchParams: {
+    video?: boolean
   }
 }
-const MemberPage = async ({ params }: MemberPageProps) => {
+const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
   const profile = await currentProfile();
 
   if (!profile) {
@@ -71,7 +77,7 @@ const server = await db.server.findUnique({
 
   const conversation = await getOrCreateConversation(currentMember.id, params.memberId);
   
-
+  
   if (!conversation) {
     return redirect(`/servers/${params.serverId}`);
   }
@@ -83,8 +89,16 @@ const server = await db.server.findUnique({
 
 
   return (
-    <div className='bg-white dark:bg-[#313383] flex flex-col h-full '>
+    <div className='bg-white flex flex-col h-full dark:bg-[#34373b]'>
       <ChatHeader name={otherMember.profile.name} imageUrl={otherMember.profile.imageUrl} type='conversation'  servers={servers} server={server} profile={profile} serverId={params?.serverId} member={currentMember}   />
+
+      {!searchParams.video ? (
+        <>
+          <ChatMessages member={currentMember} name={otherMember?.profile?.name} chatId={conversation?.id} type='conversation' apiUrl='/api/direct-messages' paramKey='conversationId' paramValue={conversation?.id} socketUrl={'/api/socket/direct-messages'} socketQuery={{conversationId: conversation?.id, }}   />
+          <ChatInput name={otherMember?.profile?.name} apiUrl='/api/socket/direct-messages' type='conversation'  query={{conversationId: conversation?.id, }}  />
+        </>
+      ): <MediaRoom chatId={conversation?.id} video='true' audio='true' />}
+      
     </div>
   )
 }

@@ -19,10 +19,13 @@ import { Button } from '@/components/ui/button';
 import { Member, MemberRole, Profile } from '@prisma/client'
 import React, { useEffect, useState } from 'react'
 import UserAvatar from '../UserAvatar'
-import { Delete, Edit, FileIcon, ShieldAlert, ShieldCheck } from 'lucide-react'
+import { Delete, Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react'
 import ActionTooltip from '../ActionTooltip'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import toast from 'react-hot-toast';
+import { useParams, useRouter } from 'next/navigation';
+import { useModal } from '@/hooks/useModalStore';
 
 
 interface ChatItemProps {
@@ -47,6 +50,9 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
         "ADMIN": <ShieldAlert className="h-4 w-4 text-rose-500 " />,
 
     }
+    // delete messagee modal onOpen function
+
+    const {onOpen} = useModal();
 
     const formSchema = z.object({
         content: z.string().min(1, {
@@ -61,8 +67,27 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
         }
     });
 
-    const onSubmit = (values) => {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const url = qs.stringifyUrl({
+                url: `${socketUrl}/${id}`,
+                query: socketQuery,
+            });
+            await axios.patch(url, values);
+            toast.success("message updated successfully")
+            form.reset();
+            setIsEditing(false)
+            router.refresh();
+
+        } catch (error) {
+            toast.error("something went wrong")
+        }
+    }
+    const onMemberClick = () => {
+        if (member?.id == currentMember?.id) {
+            return;
+        }
+        router.push(`/servers/${params?.serverId}/conversations/${member?.id}`)
     }
     useEffect(() => {
         const handleKeyDown = (event: any) => {
@@ -79,6 +104,9 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
         })
     }, [content]);
 
+    // params
+    const params = useParams();
+    const router = useRouter();
     const fileType = fileUrl?.split('.').pop();
     const isAdmin = currentMember.role === MemberRole.ADMIN;
     const isModerator = currentMember.role === MemberRole.MODERATOR;
@@ -88,6 +116,8 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
     const isPDF = fileType === "pdf" && fileUrl;
     const isImage = !isPDF && fileUrl; 
 
+    const isLoading = form.formState.isSubmitting;
+
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -95,13 +125,13 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
     return (
     <div className='relative group flex items-center hover:bg-black/5 p-4 transition w-full '>
         <div className='group flex gap-x-2 items-center w-full '>
-            <div className='cursor-pointer hover:drop-shadow-md transition'>
+            <div onClick={onMemberClick} className='cursor-pointer hover:drop-shadow-md transition'>
                 <UserAvatar src={member?.profile?.imageUrl} />
             </div>
             <div className='flex flex-col w-full'>
                 <div className='flex items-center gap-x-2 '>
                     <div className='flex items-center gap-x-2'>
-                        <p className='font-semibold text-sm hover:underline cursor-pointer'>
+                        <p onClick={onMemberClick} className='font-semibold text-sm hover:underline cursor-pointer'>
                             {member?.profile?.name}
                         </p>
                         <ActionTooltip label={member?.role} >
@@ -141,7 +171,7 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
 
                 {!fileUrl && isEditing && (
                     <Form {...form}>
-                        <form className='flex items-center w-full gap-x-2 pt-2 ' onSubmit={(values) => form.handleSubmit(onSubmit)} >
+                        <form className='flex items-center w-full gap-x-2 pt-2 ' onSubmit={form.handleSubmit(onSubmit)} >
                             <FormField
                                 control={form.control}
                                 name='content'
@@ -149,13 +179,13 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
                                     <FormItem className='flex-1'>
                                         <FormControl>
                                             <div className='relative p-4 px-6 '>
-                                                <Input className='px-14 bg-zinc-200 dark:bg-zinc-600 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0  ' placeholder={`Editted Message`} {...field} />
+                                                <Input disabled={isLoading} className='px-14 bg-zinc-200 dark:bg-zinc-600 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0  ' placeholder={`Editted Message`} {...field} />
                                             </div>         
                                         </FormControl>
                                     </FormItem>
                                 )}
                              />
-                             <Button size='sm' variant={'primary'}>
+                             <Button disabled={isLoading} size='sm' variant={'primary'}>
                                 Save
                              </Button>
                         </form>
@@ -181,7 +211,7 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
                 )}
 
                 <ActionTooltip label='Delete'>
-                    <Delete className='text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 w-4 h-4 cursor-pointer ml-auto '  />
+                    <Trash onClick={() => onOpen('deleteMessage', {query: socketQuery, apiUrl: `${socketUrl}/${id}`})} className='text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 w-4 h-4 cursor-pointer ml-auto '  />
                 </ActionTooltip>
             </div>
         )}

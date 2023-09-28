@@ -152,10 +152,27 @@
 //     }
 
 
+let a = "11", b = "1"
 
 
-
-
+let result = ''
+   let firstlength = a.length - 1;
+   let secondlength = b.length - 1;
+   let carry = 0
+   while (firstlength >= 0 || secondlength >= 0) {
+    let totalSum = carry;
+    if (firstlength >= 0) totalSum += a[firstlength--] - '0';
+    console.log('fts', totalSum)
+    if (secondlength >= 0) totalSum += b[secondlength--] - '0';
+    console.log('sts', totalSum)
+    carry = totalSum > 1 ? 1 : 0
+    result += totalSum % 2
+    console.log(firstlength, secondlength, totalSum, carry, result)
+   }
+   if (carry != '0') {
+    result += carry;
+   }
+   console.log(result.split("").reverse().join("")) 
 
 
 
