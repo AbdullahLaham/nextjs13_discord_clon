@@ -7,7 +7,9 @@ import React from 'react'
 
 const InviteCodePage = async ({params}: {params: {inviteCode: string}}) => {
     const profile = await currentProfile();
+
     if (!profile && process.env.NODE_ENV == 'production') return redirectToSignIn();
+    if (!profile) return redirectToSignIn();
     if (!params.inviteCode) return redirect("/");
     const existingServer = await db.server.findFirst({
         where: {

@@ -17,7 +17,7 @@ import { safeServer } from '@/types'
 interface MobileToggleProps {
     servers: Server[],
     profile: Profile,
-    server: safeServer,
+    server: safeServer | null,
 }
 
 const MobileToggle = ({servers, profile, server}: MobileToggleProps) => {

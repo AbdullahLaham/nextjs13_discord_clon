@@ -5,6 +5,7 @@ import ChatMessages from '@/components/chat/ChatMessages';
 import { getOrCreateConversation } from '@/lib/conversation';
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db';
+import { safeServer } from '@/types';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -90,14 +91,14 @@ const server = await db.server.findUnique({
 
   return (
     <div className='bg-white flex flex-col h-full dark:bg-[#34373b]'>
-      <ChatHeader name={otherMember.profile.name} imageUrl={otherMember.profile.imageUrl} type='conversation'  servers={servers} server={server} profile={profile} serverId={params?.serverId} member={currentMember}   />
+      <ChatHeader name={otherMember.profile.name} imageUrl={otherMember.profile.imageUrl} type='conversation'  servers={servers} server={server} profile={profile} serverId={params?.serverId}   />
 
       {!searchParams.video ? (
         <>
           <ChatMessages member={currentMember} name={otherMember?.profile?.name} chatId={conversation?.id} type='conversation' apiUrl='/api/direct-messages' paramKey='conversationId' paramValue={conversation?.id} socketUrl={'/api/socket/direct-messages'} socketQuery={{conversationId: conversation?.id, }}   />
           <ChatInput name={otherMember?.profile?.name} apiUrl='/api/socket/direct-messages' type='conversation'  query={{conversationId: conversation?.id, }}  />
         </>
-      ): <MediaRoom chatId={conversation?.id} video='true' audio='true' />}
+      ): <MediaRoom chatId={conversation?.id} video={true} audio={true} />}
       
     </div>
   )

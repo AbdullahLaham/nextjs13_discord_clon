@@ -10,7 +10,7 @@ interface ChatHeaderProps {
     serverId: string,
     name: string,
     servers: Server[],
-    server: safeServer,
+    server: safeServer | null,
     profile: Profile,
     type: "channel" | "conversation",
     imageUrl?: string,

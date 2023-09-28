@@ -6,7 +6,7 @@ import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
-import { redirect } from 'next/dist/server/api-utils';
+import { redirect } from 'next/navigation';
 import React from 'react'
 
 interface ChannelPageProps {
