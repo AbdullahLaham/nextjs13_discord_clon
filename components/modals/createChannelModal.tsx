@@ -123,9 +123,9 @@ const CreateChannelModal = () => {
                                 control={form.control}
                                 name="type"
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0  ' placeholder='Enter Channel Name' >
                                         <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Channel name</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading} {...field} className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0  ' placeholder='Enter Channel Name' >
+                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading} {...field}  >
                                                 <FormControl>
                                                     <SelectTrigger className='bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none' >
                                                         <SelectValue placeholder="Select the Channel Type" />
