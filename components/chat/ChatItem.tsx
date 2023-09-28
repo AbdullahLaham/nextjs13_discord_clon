@@ -102,7 +102,7 @@ const ChatItem = ({ id, content, member, timestamp, fileUrl, deleted, currentMem
         form.reset({
             content: content,
         })
-    }, [content]);
+    }, [content, form]);
 
     // params
     const params = useParams();
