@@ -54,7 +54,7 @@ const ChatInput = ({apiUrl, query, name, type}: ChatInputProps) => {
         form.reset();
 
     } catch (error) {
-        toast.error(error.message);
+        console.log(error);
     }
   }
   return (

@@ -16,8 +16,8 @@ import ServerChannel from './ServerChannel';
 import ServerMember from './ServerMember';
 
 interface ServerSidebarProps {
-    serverId: string,
-    server: safeServer,
+    serverId?: string,
+    server: safeServer | null,
     profile: Profile,
 }
 const iconMap = {
@@ -63,7 +63,7 @@ const ServerSidebar = ({serverId, server, profile}: ServerSidebarProps) => {
             {
               label: "Voice Channels",
               type: "channel",
-              data: audioChannels.map((channel) => (
+              data: audioChannels?.map((channel) => (
                 {
                   id: channel.id,
                   name: channel.name,
