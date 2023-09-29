@@ -56,7 +56,7 @@ const MessageFileModal = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const url = qs.stringifyUrl({
-                url: apiUrl,
+                url: apiUrl || "",
                 query,
             })
             await axios.post(url, {

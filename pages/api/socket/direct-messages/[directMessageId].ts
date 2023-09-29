@@ -140,7 +140,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponseS
 
     } catch(error) {
         console.log("[DIRECT_MESSAGES_UPDATE]", error);
-        return res.status(500).json({message: "internal error"})
+        return res.status(500).json({message: "internal error"});
     }
 }
 

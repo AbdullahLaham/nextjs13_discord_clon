@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import { safeServer } from '@/types'
-import { Channel, ChannelType, MemberRole, Server, Member, } from '@prisma/client'
+import { Channel, ChannelType, MemberRole, Server, Member, Profile, } from '@prisma/client'
 import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
@@ -11,8 +11,12 @@ import { ShieldAlert, ShieldCheck } from 'lucide-react'
 import { ModalType, useModal } from '@/hooks/useModalStore'
 import UserAvatar from '../UserAvatar'
 
+type MEMBER = Member & {
+  profile: Profile
+}
+
 interface ServerChannelProps {
-    member: Member,
+    member: MEMBER,
     server: Server,
     role?: MemberRole,
 }
