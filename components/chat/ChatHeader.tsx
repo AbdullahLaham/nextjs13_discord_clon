@@ -6,6 +6,7 @@ import { safeServer } from '@/types'
 import UserAvatar from '../UserAvatar'
 import SocketIndicator from '../SocketIndicator'
 import ChatVideoButton from './ChatVideoButton'
+
 interface ChatHeaderProps {
     serverId: string,
     name: string,
@@ -16,6 +17,7 @@ interface ChatHeaderProps {
     imageUrl?: string,
 
 }
+
 const ChatHeader = ({serverId, name, imageUrl, type, profile, servers, server}: ChatHeaderProps) => {
 
   return (
